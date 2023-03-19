@@ -1,0 +1,92 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Nsvx Hub", "Sentinel")
+
+local Tab = Window:NewTab("Menu")
+local SpeedSection = Tab:NewSection("Speed")
+SpeedSection:NewSlider("WalkSpeed", "Make You Fast", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+SpeedSection:NewSlider("JumpPower", "Make You High Jump", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+
+local ScriptSection = Tab:NewSection("Script")
+ScriptSection:NewDropdown("Gun Mod", "Makes the gun really overpowered.", {"M9", "Remington 870", "AK-47", "Taser"}, function(v)
+    local module = nil
+    if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(v) then
+        module = require(game:GetService("Players").LocalPlayer.Backpack[v].GunStates)
+    elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild(v) then
+        module = require(game:GetService("Players").LocalPlayer.Character[v].GunStates)
+    end
+    if module ~= nil then
+        module["MaxAmmo"] = math.huge
+        module["CurrentAmmo"] = math.huge
+        module["StoredAmmo"] = math.huge
+        module["FireRate"] = 0.000001
+        module["Spread"] = 0
+        module["Range"] = math.huge
+        module["Bullets"] = 10
+        module["ReloadTime"] = 0.000001
+        module["AutoFire"] = true
+    end
+
+    print(currentOption)
+end)
+
+ScriptSection:NewButton("Switch to Inmate", "Switch to the inmate team.", function()
+    local args = {
+        [1] = "Bright orange"
+    }
+    
+    workspace.Remote.TeamEvent:FireServer(unpack(args))
+    local args = {
+        [1] = PlayerName
+    }
+    
+    workspace.Remote.loadchar:InvokeServer(unpack(args))
+    
+end)
+ScriptSection:NewButton("Switch to Guards", "Switch to the guards team.", function()
+    local args = {
+        [1] = "Bright blue"
+    }
+    
+    workspace.Remote.TeamEvent:FireServer(unpack(args))
+    local args = {
+        [1] = PlayerName
+    }
+    
+    workspace.Remote.loadchar:InvokeServer(unpack(args))
+    
+end)
+ScriptSection:NewButton("Switch to Neutral", "Switch to the Neutral team.", function()
+    local args = {
+        [1] = game:GetService("Players").LocalPlayer,
+        [2] = "Medium stone grey"
+    }
+    
+    workspace.Remote.loadchar:InvokeServer(unpack(args))
+    local args = {
+        [1] = PlayerName
+    }
+    
+    workspace.Remote.loadchar:InvokeServer(unpack(args))
+    
+end)
+
+local GuiSection = Tab:NewSection("Gui")
+GuiSection:NewButton("Inf Yield", "Nice FE admin script.", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+GuiSection:NewButton("Fates Admin", "One of the best FE admin scripts.", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))()
+end)
+GuiSection:NewButton("DarkDex", "Allows you to see everything in the game.", function()
+    loadstring(game:HttpGet("https://gist.githubusercontent.com/DinosaurXxX/b757fe011e7e600c0873f967fe427dc2/raw/ee5324771f017073fc30e640323ac2a9b3bfc550/dark%2520dex%2520v4"))()
+end)
+GuiSection:NewButton("SimpleSpy", "A musthave for making roblox exploits.", function()
+    loadstring(game:HttpGet("https://github.com/exxtremestuffs/SimpleSpySource/raw/master/SimpleSpy.lua"))()
+end)
+
+local Tab = Window:NewTab("Owner")
+local ymw6sSection = Tab:NewSection("ymw6s")
